@@ -1,15 +1,15 @@
 import validator from 'validator';
 import bcrypt from 'bcrypt';
-import { validateSignUpData } from '../utils/validation';
+import { validateSignUpData } from '@/utils/validation';
 import { Request, Response } from 'express';
-import User from '@/models/user.model';
+import { UserModel } from '@/models';
 
 // Register
 const register = async (req: Request, res: Response) => {
   try {
     const { firstName, lastName, email, password } = req.body;
 
-    const alreadyPresentUser = await User.findOne({ email });
+    const alreadyPresentUser = await UserModel.findOne({ email });
 
     if (alreadyPresentUser) {
       res.status(409).json({ message: 'Email already exists', alreadyPresentUser });
@@ -22,8 +22,8 @@ const register = async (req: Request, res: Response) => {
     // Encryt the password
     const passwordHash = await bcrypt.hash(password, 10);
 
-    // Creating a new instance of the User model
-    const user = new User({
+    // Creating a new instance of the UserModel model
+    const user = new UserModel({
       firstName,
       lastName,
       email,
@@ -62,7 +62,7 @@ const login = async (req: Request, res: Response): Promise<void> => {
       throw new Error('Email Id not valid!');
     }
 
-    const user = await User.findOne({ email });
+    const user = await UserModel.findOne({ email });
     if (!user) {
       throw new Error('Email Id is not present!');
     }

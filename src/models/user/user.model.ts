@@ -2,7 +2,7 @@ import mongoose, { Schema, Model } from 'mongoose';
 import validator from 'validator';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { IPhotos, IUser } from '../types/models/user';
+import { photosType, userType } from '@/types';
 
 interface TypedValidatorProps<T> {
   path: string;
@@ -15,7 +15,7 @@ interface TypedValidatorProps<T> {
 // Photo Schema definition
 // -------------------------
 
-const photoSchema = new Schema<IPhotos>(
+const photoSchema = new Schema<photosType>(
   {
     url: {
       type: String,
@@ -37,7 +37,7 @@ const photoSchema = new Schema<IPhotos>(
 // -------------------------
 // Schema definition
 // -------------------------
-const userSchema = new Schema<IUser>(
+const userSchema = new Schema<userType>(
   {
     firstName: {
       type: String,
@@ -140,7 +140,7 @@ userSchema.index({ firstName: 1 });
 // Methods
 // -------------------------
 userSchema.methods.getJWT = async function (): Promise<string> {
-  const user = this as IUser;
+  const user = this as userType;
 
   if (!process.env.SECRET_TOKEN) {
     throw new Error('SECRET_TOKEN not defined in environment variables');
@@ -154,12 +154,12 @@ userSchema.methods.getJWT = async function (): Promise<string> {
 userSchema.methods.validatePassword = async function (
   passwordInputByUser: string
 ): Promise<boolean> {
-  const user = this as IUser;
+  const user = this as userType;
   return bcrypt.compare(passwordInputByUser, user.password);
 };
 
 // -------------------------
 // Model export
 // -------------------------
-const User: Model<IUser> = mongoose.model<IUser>('User', userSchema);
+const User: Model<userType> = mongoose.model<userType>('User', userSchema);
 export default User;

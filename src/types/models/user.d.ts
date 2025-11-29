@@ -1,4 +1,4 @@
-export interface IUser extends Document {
+export interface userType extends Document {
   _id: mongoose.Types.ObjectId;
   firstName: string;
   lastName?: string;
@@ -29,7 +29,7 @@ export interface IUser extends Document {
   validatePassword(passwordInputByUser: string): Promise<boolean>;
 }
 
-export interface IPhotos extends Document {
+export interface photosType extends Document {
   url?: string;
   public_id?: string;
 }

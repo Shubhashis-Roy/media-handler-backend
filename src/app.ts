@@ -5,8 +5,8 @@ import connectDB from './config/database';
 // import cors from 'cors';
 
 // Routes
-import routes from './routes';
-import { healthCheck } from './controller';
+import routes from '@/routes';
+import { healthCheck } from '@/controller';
 
 dotenv.config();
 
