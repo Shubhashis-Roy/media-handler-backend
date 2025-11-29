@@ -6,6 +6,7 @@ import connectDB from './config/database';
 
 // Routes
 import routes from './routes';
+import { healthCheck } from './controller';
 
 dotenv.config();
 
@@ -28,5 +29,8 @@ app.use(cookieParser());
 
 // Routes
 app.use('/v1', routes);
+
+// Health check endpoint
+app.get('/health', healthCheck);
 
 export default app;
