@@ -7,7 +7,7 @@ import User from '@/models/user.model';
 // Register
 const register = async (req: Request, res: Response) => {
   try {
-    const { password, firstName, lastName, city, email, dob, gender, interest } = req.body;
+    const { firstName, lastName, email, password } = req.body;
 
     const alreadyPresentUser = await User.findOne({ email });
 
@@ -28,10 +28,6 @@ const register = async (req: Request, res: Response) => {
       lastName,
       email,
       password: passwordHash,
-      dateOfBirth: dob,
-      city,
-      interest,
-      gender,
     });
 
     const savedUser = await user.save();

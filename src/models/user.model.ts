@@ -2,7 +2,6 @@ import mongoose, { Schema, Model } from 'mongoose';
 import validator from 'validator';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-// import { IPhotos, IUser } from '@/types/models/user';
 import { IPhotos, IUser } from '../types/models/user';
 
 interface TypedValidatorProps<T> {
@@ -29,7 +28,7 @@ const photoSchema = new Schema<IPhotos>(
     },
     public_id: {
       type: String,
-      required: true,
+      // required: true,
     },
   },
   { _id: false }
@@ -47,6 +46,14 @@ const userSchema = new Schema<IUser>(
     lastName: {
       type: String,
     },
+    username: {
+      type: String,
+      unique: true,
+      // required: true,
+      lowercase: true,
+      trim: true,
+      minlength: 3,
+    },
     email: {
       type: String,
       unique: true,
@@ -58,6 +65,10 @@ const userSchema = new Schema<IUser>(
         }
       },
     },
+    phone: {
+      type: String,
+      trim: true,
+    },
     password: {
       type: String,
       required: true,
@@ -67,20 +78,37 @@ const userSchema = new Schema<IUser>(
       //   }
       // },
     },
+    signupMethod: {
+      type: String,
+      enum: ['email', 'google'],
+      default: 'email',
+    },
+
+    isEmailVerified: {
+      type: Boolean,
+      default: false,
+    },
+
     dateOfBirth: {
       type: String,
-      required: true,
+      // required: true,
       match: /^\d{2}\/\d{2}\/\d{4}$/,
     },
     city: {
       type: String,
-      required: true,
+    },
+    state: {
+      type: String,
+    },
+    country: {
+      type: String,
+      default: 'india',
     },
 
     gender: {
       type: String,
       enum: {
-        values: ['male', 'female', 'non-binary', 'custom', 'other'],
+        values: ['male', 'female', 'other'],
         message: `{VALUE} is not a valid gender type!`,
       },
     },
@@ -91,35 +119,15 @@ const userSchema = new Schema<IUser>(
         message: 'You can upload a maximum of 6 photos',
       },
     },
-
-    interest: {
-      type: [String],
-      enum: {
-        values: ['men', 'women', 'everyone'],
-        message: `{VALUE} is not a valid interest type!`,
-      },
-    },
     profession: {
-      type: String,
-    },
-    organization: {
-      type: String,
-    },
-    education: {
       type: String,
     },
     bio: {
       type: String,
     },
-    lookingFor: {
-      type: [String],
-    },
-    preferredAge: {
-      min: { type: Number },
-      max: { type: Number },
-    },
-    preferredDistance: {
-      type: Number,
+    preferences: {
+      theme: { type: String, enum: ['light', 'dark'], default: 'light' },
+      language: { type: String, default: 'english' },
     },
   },
   { timestamps: true }

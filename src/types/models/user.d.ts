@@ -2,20 +2,26 @@ export interface IUser extends Document {
   _id: mongoose.Types.ObjectId;
   firstName: string;
   lastName?: string;
+  username?: string;
   email: string;
-  city: string;
+  phone?: string;
+  city?: string;
+  state?: string;
+  country?: string;
   password: string;
+  signupMethod?: 'email' | 'google';
+  isEmailVerified?: boolean;
   dateOfBirth?: number;
   gender?: 'male' | 'female' | 'other';
   photoUrl?: string[];
   interest?: 'male' | 'female' | 'non-binary' | 'custom';
-  organization?: string;
   profession?: string;
   education?: string;
   bio?: string;
-  lookingFor?: string[];
-  preferredAge?: string;
-  preferredDistance?: string;
+  preferences?: {
+    theme?: 'light' | 'dark';
+    language?: string;
+  };
   createdAt: Date;
   updatedAt: Date;
 
