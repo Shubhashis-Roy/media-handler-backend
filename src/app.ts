@@ -1,11 +1,13 @@
 import express, { Application } from 'express';
 import cookieParser from 'cookie-parser';
+import dotenv from 'dotenv';
+import connectDB from './config/database';
 // import cors from 'cors';
 
-// dotenv.config();
+dotenv.config();
 
 // Connect to MongoDB
-// connectDB();
+connectDB();
 
 const app: Application = express();
 
