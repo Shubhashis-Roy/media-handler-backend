@@ -1,0 +1,23 @@
+ToDo: 30 nov
+
+#Schema
+- posts[text, image, video] schema
+- social media linking schema
+
+-------------------------------
+#API:
+user 
+- user details add/update 
+- get user profile
+- user profile photos add/update [not now]
+
+posts:
+- create post
+- update/edit post
+- get all post
+- get post by id
+
+3p integration:
+- instagram
+- facebook
+- youtube
