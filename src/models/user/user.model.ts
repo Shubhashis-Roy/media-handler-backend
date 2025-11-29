@@ -2,37 +2,8 @@ import mongoose, { Schema, Model } from 'mongoose';
 import validator from 'validator';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { photosType, userType } from '@/types';
-
-interface TypedValidatorProps<T> {
-  path: string;
-  value: T;
-  type: string;
-  reason?: Error;
-}
-
-// -------------------------
-// Photo Schema definition
-// -------------------------
-
-const photoSchema = new Schema<photosType>(
-  {
-    url: {
-      type: String,
-      // required: true,
-      validate: {
-        validator: (value: string) => validator.isURL(value),
-        message: (props: TypedValidatorProps<string[]>) =>
-          `Invalid photo URL(s): ${props.value.join(', ')}`,
-      },
-    },
-    public_id: {
-      type: String,
-      // required: true,
-    },
-  },
-  { _id: false }
-);
+import { userType } from '@/types';
+import { photoSchema } from './userPhoto.schema';
 
 // -------------------------
 // Schema definition
@@ -46,14 +17,14 @@ const userSchema = new Schema<userType>(
     lastName: {
       type: String,
     },
-    username: {
-      type: String,
-      unique: true,
-      // required: true,
-      lowercase: true,
-      trim: true,
-      minlength: 3,
-    },
+    // userName: {
+    //   type: String,
+    //   unique: true,
+    //   // required: true,
+    //   lowercase: true,
+    //   trim: true,
+    //   minlength: 3,
+    // },
     email: {
       type: String,
       unique: true,
@@ -115,8 +86,8 @@ const userSchema = new Schema<userType>(
     photoUrl: {
       type: [photoSchema],
       validate: {
-        validator: (arr) => arr.length <= 6,
-        message: 'You can upload a maximum of 6 photos',
+        validator: (arr) => arr.length <= 3,
+        message: 'You can upload a maximum of 3 photos',
       },
     },
     profession: {

@@ -2,7 +2,7 @@ export interface userType extends Document {
   _id: mongoose.Types.ObjectId;
   firstName: string;
   lastName?: string;
-  username?: string;
+  // userName?: string;
   email: string;
   phone?: string;
   city?: string;
