@@ -4,6 +4,9 @@ import dotenv from 'dotenv';
 import connectDB from './config/database';
 // import cors from 'cors';
 
+// Routes
+import routes from './routes';
+
 dotenv.config();
 
 // Connect to MongoDB
@@ -22,5 +25,8 @@ const app: Application = express();
 
 app.use(express.json());
 app.use(cookieParser());
+
+// Routes
+app.use('/v1', routes);
 
 export default app;
