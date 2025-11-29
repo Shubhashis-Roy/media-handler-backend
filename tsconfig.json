@@ -1,0 +1,50 @@
+{
+  "compilerOptions": {
+    /* Output */
+    "outDir": "./dist",
+    "rootDir": "./src",
+
+    /* Module system */
+    "module": "CommonJS",
+    "target": "ES2020",
+    "moduleResolution": "node",
+
+    /* Interop and compatibility */
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+
+    /* Type safety */
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+
+    /* Source maps for debugging */
+    "sourceMap": true,
+
+    "downlevelIteration": true,
+
+    /* Custom types */
+    // "typeRoots": ["./src/types", "./node_modules/@types"],
+    "typeRoots": ["./node_modules/@types"],
+
+    /* Path aliases for cleaner imports */
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["./*"],
+      "@/config/*": ["./config/*"],
+      "@/constants/*": ["./constants/*"],
+      "@/controller/*": ["./controller/*"],
+      "@/cron-job/*": ["./cron-job/*"],
+      "@/integrations/*": ["./integrations/*"],
+      "@/middlewares/*": ["./middlewares/*"],
+      "@/models/*": ["./models/*"],
+      "@/routes/*": ["./routes/*"],
+      "@/services/*": ["./services/*"],
+      "@/types/*": ["./types/*"],
+      "@/utils/*": ["./utils/*"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}
