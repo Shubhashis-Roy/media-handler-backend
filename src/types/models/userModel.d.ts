@@ -5,18 +5,16 @@ export interface userType extends Document {
   // userName?: string;
   email: string;
   phone?: string;
-  city?: string;
-  state?: string;
-  country?: string;
   password: string;
   signupMethod?: 'email' | 'google';
   isEmailVerified?: boolean;
-  dateOfBirth?: number;
+  dateOfBirth?: string;
+  city?: string;
+  state?: string;
+  country?: string;
   gender?: 'male' | 'female' | 'other';
-  photoUrl?: string[];
-  interest?: 'male' | 'female' | 'non-binary' | 'custom';
+  photoUrl?: photosType[];
   profession?: string;
-  education?: string;
   bio?: string;
   preferences?: {
     theme?: 'light' | 'dark';

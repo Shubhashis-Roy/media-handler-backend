@@ -75,7 +75,6 @@ const userSchema = new Schema<userType>(
       type: String,
       default: 'india',
     },
-
     gender: {
       type: String,
       enum: {
@@ -86,7 +85,7 @@ const userSchema = new Schema<userType>(
     photoUrl: {
       type: [photoSchema],
       validate: {
-        validator: (arr) => arr.length <= 3,
+        validator: (arr: string[]) => arr.length <= 3,
         message: 'You can upload a maximum of 3 photos',
       },
     },

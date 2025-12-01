@@ -1,14 +1,14 @@
 ToDo: 30 nov
 
 #Schema
-- posts[text, image, video] schema
+- posts[text, image, video] schema/model
 - social media linking schema
 
 -------------------------------
 #API:
 user 
-- user details add/update 
-- get user profile
+- user details add/update [done]
+- get user profile [done]
 - user profile photos add/update [not now]
 
 posts:
@@ -21,3 +21,26 @@ posts:
 - instagram
 - facebook
 - youtube
+
+
+
+
+
+
+
+
+
+
+
+--------------------------
+    // Social Media Linking (for scheduling posts)
+    socialAccounts: {
+      instagram: { type: Object, default: null },   // later add accessToken, username
+      facebook: { type: Object, default: null },
+      twitter: { type: Object, default: null },
+      youtube: { type: Object, default: null },
+    },
+
+
+
+diff schema
