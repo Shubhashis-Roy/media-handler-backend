@@ -3,7 +3,7 @@ import { allowedKeys, StatusCodes } from '@/constants';
 import { USER_SAFE_DATA } from '@/constants/allowedDataPoints';
 import { UserModel } from '@/models';
 import { userType } from '@/types';
-import { updateProfilePayloadTypes } from '@/types/controller/userController';
+import { updateProfilePayloadTypes } from '@/types';
 
 export interface AuthenticatedRequest extends Request {
   user?: userType;

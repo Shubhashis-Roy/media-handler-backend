@@ -1,4 +1,4 @@
-import { updateProfilePayloadTypes } from '@/types/controller/userController';
+import { updateProfilePayloadTypes } from '@/types';
 
 export const allowedKeys: (keyof updateProfilePayloadTypes)[] = [
   'firstName',
