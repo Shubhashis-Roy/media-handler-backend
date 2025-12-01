@@ -9,3 +9,6 @@ export interface updateProfilePayloadTypes {
   profession?: string;
   bio?: string;
 }
+
+type preferenceUpdateKeys = 'preferences.theme' | 'preferences.language';
+export type preferenceUpdateData = Partial<Record<preferenceUpdateKeys, string>>;

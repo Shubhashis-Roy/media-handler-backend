@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { UserModel } from '@/models';
+import { API_RESPONSE_MESSAGES, StatusCodes } from '@/constants';
 
 declare module 'express-serve-static-core' {
   interface Request {
@@ -13,7 +14,7 @@ export const userAuth = async (req: Request, res: Response, next: NextFunction):
     const { token } = req.cookies as { token?: string };
 
     if (!token) {
-      res.status(401).send('Please Login!!!');
+      res.status(StatusCodes.UNAUTHORIZED).send(API_RESPONSE_MESSAGES.UNAUTHORIZED.ACCESS);
       return;
     }
 
@@ -27,7 +28,7 @@ export const userAuth = async (req: Request, res: Response, next: NextFunction):
 
     const user = await UserModel.findById(_id);
     if (!user) {
-      res.status(404).send('UserModel not found');
+      res.status(StatusCodes.NOT_FOUND).send(API_RESPONSE_MESSAGES.NOT_FOUND.USER_NOT_FOUND);
       return;
     }
 
@@ -35,6 +36,6 @@ export const userAuth = async (req: Request, res: Response, next: NextFunction):
     next();
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    res.status(400).send(`Auth middleware Error: ${message}`);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(`Auth middleware Error: ${message}`);
   }
 };

@@ -12,6 +12,8 @@ export const API_RESPONSE_MESSAGES = {
 
   // Client Error Messages (400 Series)
   BAD_REQUEST: {
+    INVALID_PREFERENCES: createResponseMessage('No valid preferences to update.'),
+    INVALID_FIELD: createResponseMessage('No valid fields to update.'),
     INVALID_OTP: createResponseMessage('Invalid OTP. Please try again.'),
     INVALID_PHONE_NO: createResponseMessage('Invalid phone number. Please try again.'),
     OTP_VERIFY_LIMIT_EXCEEDED: createResponseMessage('Max limit reached for this otp verification'),
@@ -32,7 +34,7 @@ export const API_RESPONSE_MESSAGES = {
 
   // Unauthorized Access Messages (401 Series)
   UNAUTHORIZED: {
-    ACCESS: createResponseMessage('Unauthorized access.'),
+    ACCESS: createResponseMessage('Unauthorized access, Please login!!!'),
   },
 
   // Forbidden Access Messages (403 Series)
@@ -43,9 +45,8 @@ export const API_RESPONSE_MESSAGES = {
 
   // Not Found Messages (404 Series)
   NOT_FOUND: {
+    USER_NOT_FOUND: createResponseMessage('User not found.'),
     USER: createResponseMessage('User with the provided ID could not be found.'),
-    CONSUMER: createResponseMessage('Consumer with the provided ID could not be found.'),
-    EXPERT: createResponseMessage('Expert with the provided ID could not be found.'),
     SESSION: {
       SESSION_NOT_FOUND: createResponseMessage('Session with the provided ID could not be found.'),
       ACTIVE_SESSION_NOT_FOUND: createResponseMessage('No active session found for current user.'),

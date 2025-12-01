@@ -1,5 +1,5 @@
 import express from 'express';
-import { getUserProfile, updateProfile } from '@/controller';
+import { addPreferences, getUserProfile, updateProfile } from '@/controller';
 import { userAuth } from '@/middlewares/auth';
 
 const userRouter = express.Router();
@@ -9,6 +9,9 @@ userRouter.get('/', userAuth, getUserProfile);
 
 //Edit profile
 userRouter.patch('/edit', userAuth, updateProfile);
+
+//Preferences
+userRouter.post('/preferences', userAuth, addPreferences);
 
 // //Add profile
 // userRouter.post('/upload-photos', userAuth, upload.array('photo', 6), addPhotos);
