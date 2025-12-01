@@ -1,8 +1,9 @@
+import { Request, Response } from 'express';
 import validator from 'validator';
 import bcrypt from 'bcrypt';
 import { validateSignUpData } from '@/utils/validation';
-import { Request, Response } from 'express';
 import { UserModel } from '@/models';
+import { StatusCodes } from '@/constants';
 
 // Register
 const register = async (req: Request, res: Response) => {
@@ -40,16 +41,15 @@ const register = async (req: Request, res: Response) => {
     // });
     res.cookie('token', token);
 
-    res.status(200).send({ message: 'User Added Successfully!', data: savedUser });
+    return res.status(StatusCodes.OK).send({
+      response: savedUser,
+    });
   } catch (error) {
-    // if (err.code === 11000) {
-    //   res.status(400).send("Email already exists");
-    // } else {
-    //   res.status(400).send(`Signup Error: ${err.message}`);
-    // }
     const message = error instanceof Error ? error.message : String(error);
-
-    res.status(400).send(`Signup Error: ${message}`);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
+      title: 'register api Error',
+      message,
+    });
   }
 };
 
@@ -84,18 +84,25 @@ const login = async (req: Request, res: Response): Promise<void> => {
     // const userObj = user.toObject() as IUser;
     // delete (userObj as any).password;
 
-    res.status(200).json(user);
+    res.status(StatusCodes.OK).send({
+      response: user,
+    });
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    res.status(400).send(`Login API Error: ${message}`);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
+      title: 'login api Error',
+      message,
+    });
   }
 };
 
+// Logout
 const logout = async (req: Request, res: Response) => {
   res
     .cookie('token', null, {
       expires: new Date(Date.now()),
     })
+    .status(StatusCodes.OK)
     .send('Logout Successful!!');
 };
 

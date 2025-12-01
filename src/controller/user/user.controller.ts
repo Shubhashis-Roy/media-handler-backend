@@ -1,9 +1,9 @@
-import { allowedKeys } from '@/constants';
+import { Request, Response } from 'express';
+import { allowedKeys, StatusCodes } from '@/constants';
 import { USER_SAFE_DATA } from '@/constants/allowedDataPoints';
 import { UserModel } from '@/models';
 import { userType } from '@/types';
 import { updateProfilePayloadTypes } from '@/types/controller/userController';
-import { Request, Response } from 'express';
 
 export interface AuthenticatedRequest extends Request {
   user?: userType;
@@ -13,11 +13,15 @@ export interface AuthenticatedRequest extends Request {
 const getUserProfile = async (req: Request, res: Response) => {
   try {
     const user = req.user;
-    res.send(user);
+    return res.status(StatusCodes.OK).send({
+      response: user,
+    });
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-
-    res.status(400).send(`profile api Error: ${message}`);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
+      title: 'getUserProfile api Error',
+      message,
+    });
   }
 };
 
@@ -47,23 +51,25 @@ const updateProfile = async (req: AuthenticatedRequest, res: Response) => {
       return res.status(400).json({ message: 'No valid fields to update' });
     }
 
-    const updatedUser = await UserModel.findByIdAndUpdate(
+    const result = await UserModel.findByIdAndUpdate(
       user._id,
       { $set: filteredData },
       { new: true, runValidators: true }
     ).select(USER_SAFE_DATA);
 
-    if (!updatedUser) {
+    if (!result) {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    return res.status(200).json({
-      message: 'Profile updated successfully!',
-      data: updatedUser,
+    return res.status(StatusCodes.OK).send({
+      response: result,
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    res.status(400).send(`profileUpdate API error: ${message}`);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
+      title: 'updateProfile api Error',
+      message,
+    });
   }
 };
 
