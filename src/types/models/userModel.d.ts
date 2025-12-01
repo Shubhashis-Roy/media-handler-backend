@@ -1,4 +1,4 @@
-export interface userType extends Document {
+export interface userModelType extends Document {
   _id: mongoose.Types.ObjectId;
   firstName: string;
   lastName?: string;

@@ -1,4 +1,5 @@
-import { userType, photosType } from './models/userModel';
+import { userModelType, photosType } from './models/userModel';
+import { postModelType } from './models/postModel';
 import { updateProfilePayloadTypes } from './controller/userController';
 
-export { userType, photosType, updateProfilePayloadTypes };
+export { userModelType, photosType, updateProfilePayloadTypes, postModelType };

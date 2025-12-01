@@ -2,13 +2,13 @@ import mongoose, { Schema, Model } from 'mongoose';
 import validator from 'validator';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { userType } from '@/types';
+import { userModelType } from '@/types';
 import { photoSchema } from './userPhoto.schema';
 
 // -------------------------
 // Schema definition
 // -------------------------
-const userSchema = new Schema<userType>(
+const userSchema = new Schema<userModelType>(
   {
     firstName: {
       type: String,
@@ -110,7 +110,7 @@ userSchema.index({ firstName: 1 });
 // Methods
 // -------------------------
 userSchema.methods.getJWT = async function (): Promise<string> {
-  const user = this as userType;
+  const user = this as userModelType;
 
   if (!process.env.SECRET_TOKEN) {
     throw new Error('SECRET_TOKEN not defined in environment variables');
@@ -124,12 +124,12 @@ userSchema.methods.getJWT = async function (): Promise<string> {
 userSchema.methods.validatePassword = async function (
   passwordInputByUser: string
 ): Promise<boolean> {
-  const user = this as userType;
+  const user = this as userModelType;
   return bcrypt.compare(passwordInputByUser, user.password);
 };
 
 // -------------------------
 // Model export
 // -------------------------
-const User: Model<userType> = mongoose.model<userType>('User', userSchema);
+const User: Model<userModelType> = mongoose.model<userModelType>('User', userSchema);
 export default User;
