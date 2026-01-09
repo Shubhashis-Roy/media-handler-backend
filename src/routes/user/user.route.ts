@@ -8,7 +8,7 @@ const userRouter = express.Router();
 userRouter.get('/', userAuth, getUserProfile);
 
 //Edit profile
-userRouter.patch('/edit', userAuth, updateProfile);
+userRouter.patch('/details', userAuth, updateProfile);
 
 //Preferences
 userRouter.post('/preferences', userAuth, addPreferences);
