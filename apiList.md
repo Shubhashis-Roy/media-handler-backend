@@ -10,3 +10,4 @@
 
 - Get profile: /
 - update profile: /edit
+- add/update preferences: /preferences
